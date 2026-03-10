@@ -4,6 +4,7 @@ import CharacterGrid from '../../organisms/characterGrid/CharacterGrid'
 import Pagination from '../../molecules/pagination/Pagination'
 import SearchBar from '../../molecules/searchBar/SearchBar'
 import Spinner from '../../atoms/spinner/Spinner'
+import StatusLegend from '../../atoms/statusLegend/StatusLegend'
 import { useCharacters } from '../../../hooks/useCharacters'
 import { useDebounce } from '../../../hooks/useDebounce'
 import type { CharacterStatus } from '../../../types/api.types'
@@ -42,12 +43,22 @@ const CharactersPage = () => {
     if (loading) return <Spinner />
 
     if (error) return (
-      <div className="flex flex-col items-center gap-4 mt-16 text-center">
-        <p className="text-red-400 text-lg">Something went wrong: {error}</p>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '4rem' }}>
+        <p style={{ color: '#ff4444', fontSize: '1rem' }}>Something went wrong: {error}</p>
         <button
           onClick={() => setPage(1)}
-          className="px-4 py-2 rounded-lg text-xs font-bold tracking-widest uppercase"
-          style={{ border: '1px solid rgba(57,255,20,0.35)', color: '#39ff14' }}
+          style={{
+            padding: '0.5rem 1.25rem',
+            borderRadius: '0.75rem',
+            background: 'transparent',
+            border: '1px solid rgba(57,255,20,0.35)',
+            color: '#39ff14',
+            cursor: 'pointer',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+          }}
         >
           Retry
         </button>
@@ -55,11 +66,11 @@ const CharactersPage = () => {
     )
 
     if (!data.length) return (
-      <div className="flex flex-col items-center mt-16 gap-2">
-        <p className="text-2xl" style={{ fontFamily: "'Creepster', cursive", color: 'rgba(57,255,20,0.5)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '4rem', gap: '0.5rem' }}>
+        <p style={{ fontFamily: "'Creepster', cursive", color: 'rgba(57,255,20,0.5)', fontSize: '1.5rem' }}>
           No characters found
         </p>
-        <p className="text-xs tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>
+        <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.75rem', letterSpacing: '0.1em' }}>
           Try adjusting your search or filters
         </p>
       </div>
@@ -82,6 +93,13 @@ const CharactersPage = () => {
 
   return (
     <MainLayout>
+      {/* Leyenda con separadores */}
+      <div style={{ marginTop: '1.5rem', borderTop: '1px solid rgba(57,255,20,0.2)' }} />
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
+        <StatusLegend />
+      </div>
+      <div style={{ borderTop: '1px solid rgba(57,255,20,0.2)', marginBottom: '2rem' }} />
+
       <SearchBar
         name={name}
         status={status}

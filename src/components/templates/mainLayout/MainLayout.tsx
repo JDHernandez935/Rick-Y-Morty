@@ -1,5 +1,3 @@
-import StatusLegend from '../../atoms/statusLegend/StatusLegend'
-
 interface MainLayoutProps {
   children: React.ReactNode
 }
@@ -35,12 +33,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             Interdimensional Database
           </p>
         </header>
-
-        <div style={{ marginTop: '2rem', borderTop: '1px solid rgba(57,255,20,0.2)' }} />
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
-          <StatusLegend />
-        </div>
-        <div style={{ borderTop: '1px solid rgba(57,255,20,0.2)', marginBottom: '2rem' }} />
 
         <main style={{
           maxWidth: '80rem',

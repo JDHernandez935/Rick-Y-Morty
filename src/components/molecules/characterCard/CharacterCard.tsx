@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Badge from '../../atoms/badge/Badge'
 import type { Character } from '../../../types/api.types'
 
@@ -8,6 +9,7 @@ interface CharacterCardProps {
 
 const CharacterCard = ({ character }: CharacterCardProps) => {
   const [flipped, setFlipped] = useState(false)
+  const navigate = useNavigate()
   const { name, image, status, species, gender, origin, location } = character
 
   return (
@@ -24,6 +26,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
           style={{
             border: '1px solid rgba(57, 255, 20, 0.25)',
             boxShadow: '0 4px 24px rgba(0,0,0,0.6)',
+            pointerEvents: flipped ? 'none' : 'auto',
           }}
         >
           <img
@@ -68,27 +71,24 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
             padding: 'clamp(0.5rem, 3%, 1rem)',
             gap: 'clamp(0.25rem, 2%, 0.5rem)',
             overflow: 'hidden',
+            pointerEvents: flipped ? 'auto' : 'none',
           }}
         >
-          {/* Nombre */}
-          <h3
-            style={{
-              color: '#39ff14',
-              fontFamily: "'Creepster', cursive",
-              letterSpacing: '0.08em',
-              textAlign: 'center',
-              fontSize: 'clamp(0.75rem, 3.5vw, 1rem)',
-              lineHeight: 1.2,
-              width: '100%',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
+          <h3 style={{
+            color: '#39ff14',
+            fontFamily: "'Creepster', cursive",
+            letterSpacing: '0.08em',
+            textAlign: 'center',
+            fontSize: 'clamp(0.75rem, 3.5vw, 1rem)',
+            lineHeight: 1.2,
+            width: '100%',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}>
             {name}
           </h3>
 
-          {/* Detalles */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(0.2rem, 2%, 0.4rem)', width: '100%' }}>
             {[
               { label: 'Gender', value: gender },
@@ -122,7 +122,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
             ))}
           </div>
 
-          {/* Botón */}
+          {/* Botón View Details */}
           <button
             style={{
               marginTop: 'clamp(0.25rem, 2%, 0.5rem)',
@@ -146,7 +146,10 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
               (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
               ;(e.currentTarget as HTMLButtonElement).style.boxShadow = 'none'
             }}
-            onClick={e => e.stopPropagation()}
+            onClick={e => {
+              e.stopPropagation()
+              navigate(`/characters/${character.id}`)
+            }}
           >
             View Details
           </button>
