@@ -1,15 +1,14 @@
-import { useCharacters } from '../../../hooks/useCharacters'
 import CharacterCard from '../../molecules/characterCard/CharacterCard'
+import type { Character } from '../../../types/api.types'
 
-const CharacterGrid = () => {
-  const { data, loading, error } = useCharacters()
+interface CharacterGridProps {
+  characters: Character[]
+}
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error}</p>
-
+const CharacterGrid = ({ characters }: CharacterGridProps) => {
   return (
-    <div>
-      {data.map(character => (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {characters.map(character => (
         <CharacterCard key={character.id} character={character} />
       ))}
     </div>

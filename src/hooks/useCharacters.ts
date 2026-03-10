@@ -48,9 +48,7 @@ export const useCharacters = (filters: CharacterFilters = {}) => {
         dispatch({ type: 'ERROR', payload: err.message })
       })
 
-    return () => {
-      cancelled = true
-    }
+    return () => { cancelled = true }
   }, [filtersKey])
 
   return state
