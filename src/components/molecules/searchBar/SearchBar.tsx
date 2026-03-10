@@ -41,6 +41,7 @@ const SearchBar = ({ name, status, species, onNameChange, onStatusChange, onSpec
       <div
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
           alignItems: 'center',
           gap: '0.75rem',
           padding: '1rem 1.25rem',
@@ -50,62 +51,57 @@ const SearchBar = ({ name, status, species, onNameChange, onStatusChange, onSpec
           backdropFilter: 'blur(8px)',
         }}
       >
-        {/* Input */}
-        <div style={{ flex: 1, minWidth: 0 }}>
+        {/* Input — siempre ocupa fila completa en mobile */}
+        <div style={{ flex: '1 1 200px', minWidth: 0 }}>
           <SearchInput value={name} onChange={onNameChange} />
         </div>
 
-        {/* Divisor vertical */}
-        <div style={{ width: '1px', height: '20px', background: 'rgba(57,255,20,0.15)', flexShrink: 0 }} />
+        {/* Filtros — en mobile bajan solos por flex-wrap */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <div style={{ width: '1px', height: '20px', background: 'rgba(57,255,20,0.15)', flexShrink: 0 }} className="hidden-mobile" />
 
-        {/* Status */}
-        <SelectFilter
-          value={status}
-          onChange={val => onStatusChange(val as CharacterStatus | '')}
-          options={STATUS_OPTIONS}
-          placeholder="Status"
-        />
+          <SelectFilter
+            value={status}
+            onChange={val => onStatusChange(val as CharacterStatus | '')}
+            options={STATUS_OPTIONS}
+            placeholder="Status"
+          />
 
-        {/* Divisor vertical */}
-        <div style={{ width: '1px', height: '20px', background: 'rgba(57,255,20,0.15)', flexShrink: 0 }} />
+          <div style={{ width: '1px', height: '20px', background: 'rgba(57,255,20,0.15)', flexShrink: 0 }} />
 
-        {/* Species */}
-        <SelectFilter
-          value={species}
-          onChange={onSpeciesChange}
-          options={SPECIES_OPTIONS}
-          placeholder="Species"
-        />
+          <SelectFilter
+            value={species}
+            onChange={onSpeciesChange}
+            options={SPECIES_OPTIONS}
+            placeholder="Species"
+          />
 
-        {hasFilters && (
-          <>
-            <div style={{ width: '1px', height: '20px', background: 'rgba(57,255,20,0.15)', flexShrink: 0 }} />
-            <button
-              onClick={handleClearAll}
-              style={{
-                flexShrink: 0,
-                background: 'transparent',
-                border: 'none',
-                color: 'rgba(255,68,68,0.7)',
-                padding: '0 0.5rem',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                whiteSpace: 'nowrap',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,68,68,1)'
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,68,68,0.7)'
-              }}
-            >
-              ✕ Clear
-            </button>
-          </>
-        )}
+          {hasFilters && (
+            <>
+              <div style={{ width: '1px', height: '20px', background: 'rgba(57,255,20,0.15)', flexShrink: 0 }} />
+              <button
+                onClick={handleClearAll}
+                style={{
+                  flexShrink: 0,
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'rgba(255,68,68,0.7)',
+                  padding: '0 0.5rem',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,68,68,1)' }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,68,68,0.7)' }}
+              >
+                ✕ Clear
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
       <hr style={{ margin: '1.5rem 0', borderColor: 'rgba(57,255,20,0.15)' }} />

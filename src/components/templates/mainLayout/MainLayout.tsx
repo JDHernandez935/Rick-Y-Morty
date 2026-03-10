@@ -17,7 +17,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               fontFamily: "'Creepster', cursive",
               color: '#39ff14',
               textShadow: '0 0 20px #39ff14, 0 0 40px #00e676',
-              fontSize: '3rem',
+              fontSize: 'clamp(2rem, 6vw, 3.5rem)',
               fontWeight: 700,
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
@@ -25,20 +25,28 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           >
             Rick & Morty
           </h1>
-          <p style={{ color: '#166534', fontSize: '0.75rem', marginTop: '0.25rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+          <p style={{
+            color: '#166534',
+            fontSize: 'clamp(0.6rem, 1.5vw, 0.75rem)',
+            marginTop: '0.25rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+          }}>
             Interdimensional Database
           </p>
         </header>
 
         <div style={{ marginTop: '2rem', borderTop: '1px solid rgba(57,255,20,0.2)' }} />
-
         <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
           <StatusLegend />
         </div>
-
         <div style={{ borderTop: '1px solid rgba(57,255,20,0.2)', marginBottom: '2rem' }} />
 
-        <main style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 1rem 4rem' }}>
+        <main style={{
+          maxWidth: '80rem',
+          margin: '0 auto',
+          padding: '0 clamp(0.75rem, 3vw, 1.5rem) 4rem',
+        }}>
           {children}
         </main>
       </div>

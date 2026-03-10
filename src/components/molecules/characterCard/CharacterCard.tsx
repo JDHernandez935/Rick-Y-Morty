@@ -31,13 +31,9 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
             alt={name}
             className="absolute inset-0 w-full h-full object-cover"
           />
-
-          {/* Status badge */}
           <div className="absolute top-3 right-3 z-10">
             <Badge status={status} />
           </div>
-
-          {/* Gradiente + info */}
           <div
             className="absolute bottom-0 left-0 right-0 z-10"
             style={{
@@ -60,53 +56,87 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
 
         {/* ── REVERSO ── */}
         <div
-          className="card-back flex flex-col items-center justify-center gap-4 px-4"
+          className="card-back"
           style={{
             background: 'linear-gradient(145deg, #071a07, #030d03)',
             border: '1px solid rgba(57, 255, 20, 0.25)',
             boxShadow: '0 4px 24px rgba(0,0,0,0.6)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 'clamp(0.5rem, 3%, 1rem)',
+            gap: 'clamp(0.25rem, 2%, 0.5rem)',
+            overflow: 'hidden',
           }}
         >
-          {/* Nombre en el reverso */}
+          {/* Nombre */}
           <h3
-            className="text-center font-bold text-base mb-2"
-            style={{ color: '#39ff14', fontFamily: "'Creepster', cursive", letterSpacing: '0.1em' }}
+            style={{
+              color: '#39ff14',
+              fontFamily: "'Creepster', cursive",
+              letterSpacing: '0.08em',
+              textAlign: 'center',
+              fontSize: 'clamp(0.75rem, 3.5vw, 1rem)',
+              lineHeight: 1.2,
+              width: '100%',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
           >
             {name}
           </h3>
 
           {/* Detalles */}
-          <div className="flex flex-col items-center gap-3 w-full">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(0.2rem, 2%, 0.4rem)', width: '100%' }}>
             {[
               { label: 'Gender', value: gender },
               { label: 'Origin', value: origin.name },
               { label: 'Location', value: location.name },
             ].map(({ label, value }) => (
-              <div key={label} className="flex flex-col items-center gap-1 w-full">
-                <span
-                  className="text-xs tracking-widest uppercase"
-                  style={{ color: 'rgba(57,255,20,0.5)' }}
-                >
+              <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <span style={{
+                  color: 'rgba(57,255,20,0.55)',
+                  fontSize: 'clamp(0.5rem, 1.8vw, 0.65rem)',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                }}>
                   {label}
                 </span>
-                <span
-                  className="text-xs text-center font-semibold"
-                  style={{ color: 'rgba(255,255,255,0.75)' }}
-                >
+                <span style={{
+                  color: 'rgba(255,255,255,0.8)',
+                  fontSize: 'clamp(0.55rem, 2vw, 0.75rem)',
+                  fontWeight: 600,
+                  textAlign: 'center',
+                  width: '100%',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  padding: '0 0.25rem',
+                }}>
                   {value}
                 </span>
-                <div style={{ borderTop: '1px solid rgba(57,255,20,0.1)', width: '60%' }} />
+                <div style={{ marginTop: '0.2rem', borderTop: '1px solid rgba(57,255,20,0.1)', width: '70%' }} />
               </div>
             ))}
           </div>
 
-          {/* Botón See more */}
+          {/* Botón */}
           <button
-            className="mt-4 px-5 py-2 rounded-lg text-xs font-bold tracking-widest uppercase transition-all duration-200"
             style={{
+              marginTop: 'clamp(0.25rem, 2%, 0.5rem)',
+              padding: 'clamp(0.25rem, 2%, 0.4rem) clamp(0.5rem, 4%, 1rem)',
+              borderRadius: '0.5rem',
               background: 'transparent',
               border: '1px solid rgba(57,255,20,0.4)',
               color: '#39ff14',
+              fontSize: 'clamp(0.5rem, 1.8vw, 0.7rem)',
+              fontWeight: 700,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
             }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLButtonElement).style.background = 'rgba(57,255,20,0.1)'

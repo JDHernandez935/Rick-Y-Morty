@@ -7,7 +7,13 @@ interface CharacterGridProps {
 
 const CharacterGrid = ({ characters }: CharacterGridProps) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(130px, 18vw, 180px), 1fr))',
+        gap: 'clamp(0.75rem, 2vw, 1.25rem)',
+      }}
+    >
       {characters.map(character => (
         <CharacterCard key={character.id} character={character} />
       ))}
