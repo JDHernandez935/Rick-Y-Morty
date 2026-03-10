@@ -14,7 +14,9 @@ const CharacterDetailPage = () => {
 
     if (error) return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '4rem' }}>
-        <p style={{ color: '#ff4444' }}>Something went wrong: {error}</p>
+        <p style={{ color: '#ff4444', fontSize: 'clamp(0.85rem, 2vw, 1rem)', textAlign: 'center' }}>
+          Something went wrong: {error}
+        </p>
         <button
           onClick={() => navigate('/characters')}
           style={{
@@ -49,14 +51,15 @@ const CharacterDetailPage = () => {
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
-          marginBottom: '2rem',
-          padding: '0.5rem 1.25rem',
+          marginTop: 'clamp(1rem, 3vw, 1.5rem)',
+          marginBottom: 'clamp(1.5rem, 4vw, 2rem)',
+          padding: '0.5rem clamp(0.75rem, 2vw, 1.25rem)',
           borderRadius: '0.75rem',
           background: 'transparent',
           border: '1px solid rgba(57,255,20,0.35)',
           color: '#39ff14',
           cursor: 'pointer',
-          fontSize: '0.75rem',
+          fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)',
           fontWeight: 700,
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
