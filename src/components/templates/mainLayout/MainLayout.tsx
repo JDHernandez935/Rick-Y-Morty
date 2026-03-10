@@ -1,3 +1,5 @@
+import StatusLegend from '../../atoms/statusLegend/StatusLegend'
+
 interface MainLayoutProps {
   children: React.ReactNode
 }
@@ -9,22 +11,34 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <div className="portal-orb" />
       </div>
       <div className="relative z-10 min-h-screen">
-        <header className="py-8 text-center">
+        <header style={{ paddingTop: '2rem', paddingBottom: '0.5rem', textAlign: 'center' }}>
           <h1
-            className="text-5xl font-bold tracking-widest uppercase"
             style={{
               fontFamily: "'Creepster', cursive",
               color: '#39ff14',
               textShadow: '0 0 20px #39ff14, 0 0 40px #00e676',
+              fontSize: '3rem',
+              fontWeight: 700,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
             }}
           >
             Rick & Morty
           </h1>
-          <p className="text-green-600 text-sm mt-1 tracking-widest uppercase">
+          <p style={{ color: '#166534', fontSize: '0.75rem', marginTop: '0.25rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
             Interdimensional Database
           </p>
         </header>
-        <main className="max-w-7xl mx-auto px-4 py-4 pb-16">
+
+        <div style={{ marginTop: '2rem', borderTop: '1px solid rgba(57,255,20,0.2)' }} />
+
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
+          <StatusLegend />
+        </div>
+
+        <div style={{ borderTop: '1px solid rgba(57,255,20,0.2)', marginBottom: '2rem' }} />
+
+        <main style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 1rem 4rem' }}>
           {children}
         </main>
       </div>
