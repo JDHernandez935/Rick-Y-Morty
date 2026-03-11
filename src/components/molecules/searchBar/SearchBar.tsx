@@ -11,6 +11,7 @@ const STATUS_OPTIONS = [
 const SPECIES_OPTIONS = [
   { label: 'Human', value: 'Human' },
   { label: 'Alien', value: 'Alien' },
+  { label: 'Cronenberg', value: 'Cronenberg' },
   { label: 'Humanoid', value: 'Humanoid' },
   { label: 'Robot', value: 'Robot' },
   { label: 'Animal', value: 'Animal' },
