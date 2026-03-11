@@ -83,8 +83,14 @@ const CharactersPage = () => {
           <Pagination
             currentPage={page}
             totalPages={info.pages}
-            onNext={() => setPage(prev => prev + 1)}
-            onPrev={() => setPage(prev => prev - 1)}
+            onNext={() => {
+              setPage(prev => prev + 1)
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            onPrev={() => {
+              setPage(prev => prev - 1)
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
           />
         )}
       </>
