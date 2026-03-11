@@ -1,22 +1,23 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Badge from '../../atoms/badge/Badge'
+import FavoriteButton from '../../atoms/favoriteButton/FavoriteButton'
 import type { Character } from '../../../types/api.types'
 
 interface CharacterCardProps {
   character: Character
+  isFlipped: boolean
+  onFlip: (id: number) => void
 }
 
-const CharacterCard = ({ character }: CharacterCardProps) => {
-  const [flipped, setFlipped] = useState(false)
+const CharacterCard = ({ character, isFlipped, onFlip }: CharacterCardProps) => {
   const navigate = useNavigate()
   const { name, image, status, species, gender, origin, location } = character
 
   return (
     <div
-      className={`card-flip cursor-pointer ${flipped ? 'flipped' : ''}`}
+      className={`card-flip cursor-pointer ${isFlipped ? 'flipped' : ''}`}
       style={{ aspectRatio: '3/4' }}
-      onClick={() => setFlipped(prev => !prev)}
+      onClick={() => onFlip(character.id)}
     >
       <div className="card-flip-inner">
 
@@ -26,7 +27,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
           style={{
             border: '1px solid rgba(57, 255, 20, 0.25)',
             boxShadow: '0 4px 24px rgba(0,0,0,0.6)',
-            pointerEvents: flipped ? 'none' : 'auto',
+            pointerEvents: isFlipped ? 'none' : 'auto',
           }}
         >
           <img
@@ -71,7 +72,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
             padding: 'clamp(0.5rem, 3%, 1rem)',
             gap: 'clamp(0.25rem, 2%, 0.5rem)',
             overflow: 'hidden',
-            pointerEvents: flipped ? 'auto' : 'none',
+            pointerEvents: isFlipped ? 'auto' : 'none',
           }}
         >
           <h3 style={{
@@ -126,6 +127,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
           <button
             style={{
               marginTop: 'clamp(0.25rem, 2%, 0.5rem)',
+              width: '100%',
               padding: 'clamp(0.25rem, 2%, 0.4rem) clamp(0.5rem, 4%, 1rem)',
               borderRadius: '0.5rem',
               background: 'transparent',
@@ -154,6 +156,18 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
             View Details
           </button>
         </div>
+
+        {/* Estrella — fuera del card-back para evitar overflow:hidden */}
+        {isFlipped && (
+          <div style={{
+            position: 'absolute',
+            top: '-8px',
+            left: '-8px',
+            zIndex: 20,
+          }}>
+            <FavoriteButton character={character} size={20} />
+          </div>
+        )}
 
       </div>
     </div>

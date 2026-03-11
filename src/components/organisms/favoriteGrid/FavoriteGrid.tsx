@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react'
 import CharacterCard from '../../molecules/characterCard/CharacterCard'
 import type { Character } from '../../../types/api.types'
 
-interface CharacterGridProps {
+interface FavoriteGridProps {
   characters: Character[]
 }
 
-const CharacterGrid = ({ characters }: CharacterGridProps) => {
+const FavoriteGrid = ({ characters }: FavoriteGridProps) => {
   const [activeId, setActiveId] = useState<number | null>(null)
 
-  // Click fuera de cualquier card → resetea
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement
@@ -39,4 +38,4 @@ const CharacterGrid = ({ characters }: CharacterGridProps) => {
   )
 }
 
-export default CharacterGrid
+export default FavoriteGrid

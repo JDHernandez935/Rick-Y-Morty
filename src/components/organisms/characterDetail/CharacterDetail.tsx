@@ -2,6 +2,7 @@ import Badge from '../../atoms/badge/Badge'
 import StatItem from '../../atoms/statItem/StatItem'
 import EpisodeTag from '../../molecules/episodeTag/EpisodeTag'
 import Spinner from '../../atoms/spinner/Spinner'
+import FavoriteButton from '../../atoms/favoriteButton/FavoriteButton'
 import { useEpisodes } from '../../../hooks/useEpisodes'
 import type { Character } from '../../../types/api.types'
 
@@ -53,18 +54,27 @@ const CharacterDetail = ({ character }: CharacterDetailProps) => {
             </div>
           </div>
 
-          {/* Nombre */}
-          <h1 style={{
-            fontFamily: "'Creepster', cursive",
-            color: '#39ff14',
-            textShadow: '0 0 16px rgba(57,255,20,0.4)',
-            fontSize: 'clamp(1.5rem, 5vw, 2rem)',
-            textAlign: 'center',
-            letterSpacing: '0.08em',
-            lineHeight: 1.2,
+          {/* Nombre + FavoriteButton */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.75rem',
+            width: '100%',
           }}>
-            {name}
-          </h1>
+            <h1 style={{
+              fontFamily: "'Creepster', cursive",
+              color: '#39ff14',
+              textShadow: '0 0 16px rgba(57,255,20,0.4)',
+              fontSize: 'clamp(1.5rem, 5vw, 2rem)',
+              textAlign: 'center',
+              letterSpacing: '0.08em',
+              lineHeight: 1.2,
+            }}>
+              {name}
+            </h1>
+            <FavoriteButton character={character} size={24} />
+          </div>
 
           {/* Stats */}
           <div style={{

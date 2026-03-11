@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import MainLayout from '../../templates/mainLayout/MainLayout'
 import CharacterGrid from '../../organisms/characterGrid/CharacterGrid'
 import Pagination from '../../molecules/pagination/Pagination'
@@ -7,6 +8,7 @@ import Spinner from '../../atoms/spinner/Spinner'
 import StatusLegend from '../../atoms/statusLegend/StatusLegend'
 import { useCharacters } from '../../../hooks/useCharacters'
 import { useDebounce } from '../../../hooks/useDebounce'
+import { useFavoritesStore } from '../../../store/favoritesStore'
 import type { CharacterStatus } from '../../../types/api.types'
 
 const CharactersPage = () => {
@@ -14,6 +16,8 @@ const CharactersPage = () => {
   const [name, setName] = useState('')
   const [status, setStatus] = useState<CharacterStatus | ''>('')
   const [species, setSpecies] = useState('')
+  const navigate = useNavigate()
+  const { favorites } = useFavoritesStore()
 
   const debouncedName = useDebounce(name, 500)
 
@@ -99,10 +103,47 @@ const CharactersPage = () => {
 
   return (
     <MainLayout>
-      {/* Leyenda con separadores */}
+      {/* Leyenda + botón Favorites */}
       <div style={{ marginTop: '1.5rem', borderTop: '1px solid rgba(57,255,20,0.2)' }} />
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0.75rem 0',
+      }}>
+        <div style={{ flex: 1 }} />
         <StatusLegend />
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <button
+            onClick={() => navigate('/favorites')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.4rem 1rem',
+              borderRadius: '0.75rem',
+              background: 'transparent',
+              border: '1px solid rgba(255,215,0,0.4)',
+              color: '#FFD700',
+              cursor: 'pointer',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,215,0,0.08)'
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" strokeWidth="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            Favorites ({favorites.length})
+          </button>
+        </div>
       </div>
       <div style={{ borderTop: '1px solid rgba(57,255,20,0.2)', marginBottom: '2rem' }} />
 
