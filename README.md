@@ -1,73 +1,141 @@
-# React + TypeScript + Vite
+# 🛸 Rick & Morty App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Base de Datos Interdimensional — Una aplicación construida con React + TypeScript y Vite que consume la [API pública de Rick and Morty](https://rickandmortyapi.com/).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Cómo ejecutar el proyecto
 
-## React Compiler
+### Requisitos previos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js >= 18
+- npm >= 9
 
-## Expanding the ESLint configuration
+### Instalación
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/JDHernandez935/Rick-Y-Morty.git
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 2. Entrar a la carpeta del proyecto
+cd Rick-Y-Morty
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# 3. Instalar dependencias
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 4. Iniciar el servidor de desarrollo
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+La aplicación estará disponible en `http://localhost:5173`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Otros comandos disponibles
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Compilar para producción
+npm run build
+
+# Previsualizar el build de producción
+npm run preview
+
+# Ejecutar el linter
+npm run lint
 ```
+
+---
+
+## 📁 Estructura del proyecto
+
+El proyecto sigue el patrón de **Diseño Atómico** para mantener los componentes organizados y escalables:
+
+```
+src/
+├── components/
+│   ├── atoms/          # Unidades mínimas: Badge, Spinner, FavoriteButton, etc.
+│   ├── molecules/      # Combinaciones de átomos: CharacterCard, Pagination, SearchBar, etc.
+│   ├── organisms/      # Secciones complejas: CharacterGrid, CharacterDetail, etc.
+│   ├── templates/      # Layouts de página: MainLayout
+│   └── pages/          # Páginas completas: CharactersPage, CharacterDetailPage, FavoritesPage
+├── hooks/              # Custom hooks: useCharacters, useCharacter, useEpisodes, useDebounce
+├── services/           # Capa de API: rickAndMorty.service.ts, api.config.ts
+├── store/              # Estado global: favoritesStore (Zustand)
+├── types/              # Interfaces TypeScript: api.types.ts
+├── router/             # Configuración de React Router
+└── utils/              # Utilidades y helpers
+```
+
+---
+
+## 📄 Páginas
+
+| Ruta | Descripción |
+|------|-------------|
+| `/` | Redirige a `/characters` |
+| `/characters` | Página principal con grid de personajes, búsqueda, filtros y paginación |
+| `/characters/:id` | Página de detalle del personaje con estadísticas y lista de episodios |
+| `/favorites` | Lista de favoritos guardados con estado vacío |
+
+---
+
+## 🛠️ Decisiones técnicas
+
+- **Vite** fue mi primera elección como herramienta de desarrollo porque agiliza mucho el proceso, el servidor arranca casi al instante y los cambios se reflejan en pantalla de forma inmediata. Viniendo de otras herramientas, la diferencia se nota.
+
+- **Patrón de Diseño Atómico** lo usé para mantener un orden claro entre los componentes y las páginas. La idea es simple: los átomos son las piezas más pequeñas, las moléculas agrupan átomos, los organismos forman secciones completas, los templates definen el esqueleto de cada vista y las páginas conectan todo. Me pareció la forma más limpia de escalar el proyecto sin que se vuelva un caos.
+
+- **React Router DOM** para el enrutamiento del lado del cliente. Permite moverse entre la lista de personajes, el detalle y los favoritos sin recargar la página, lo cual le da una sensación mucho más fluida a la aplicación.
+
+- **Zustand** con el middleware `persist` para manejar los favoritos de forma global. Me gustó esta opción porque es muy poco código, fácil de entender y la persistencia en `localStorage` viene incluida sin necesidad de configurar nada extra.
+
+- **Tailwind CSS** para los estilos. Funciona muy bien para la mayoría de los casos, aunque tuve que apoyarme en estilos en línea para valores dinámicos como `clamp()` donde Tailwind se queda corto.
+
+- **Debounce** en la búsqueda para no disparar una petición a la API con cada letra que escribe el usuario. Pequeño detalle que marca bastante diferencia en el rendimiento.
+
+- **Carga de episodios en lote** — en lugar de hacer una petición por cada episodio del personaje, extraigo todos los IDs y los pido en una sola llamada (`/episode/1,2,3`). La propia documentación de la API lo sugiere y es claramente la opción más eficiente.
+
+- **Conventional Commits** para mantener el historial de git ordenado y con sentido. Cada commit describe exactamente qué cambió y por qué.
+
+---
+
+## 🔮 Qué haría diferente con más tiempo
+
+- **Diseño y experimentación visual** — creo que con más tiempo hubiera explorado ideas más arriesgadas en el diseño y experimentado con animaciones más elaboradas. Hay mucho margen para hacer la experiencia más memorable.
+
+- **Pruebas** — me hubiera gustado añadir tests para los custom hooks y la capa de servicios. Es algo que le da mucha solidez al proyecto y que en este caso quedó pendiente.
+
+- **Error boundaries** — para manejar errores inesperados en tiempo de ejecución de forma más elegante, sin que toda la app se rompa por un fallo puntual.
+
+- **Listas virtualizadas** — con muchos personajes en pantalla, renderizar todas las cards a la vez no es lo más eficiente. Librerias como `react-virtual` ayudarían bastante aquí.
+
+- **Página 404 personalizada** — una ruta not-found con el estilo del proyecto para que las URLs inválidas no rompan la experiencia.
+
+- **Accesibilidad** — añadiría atributos `aria`, mejor soporte para navegación con teclado y una gestión del foco más cuidada en toda la aplicación.
+
+---
+
+## 📦 Dependencias principales
+
+| Paquete | Versión | Propósito |
+|---------|---------|-----------|
+| React | 19 | Librería de UI |
+| TypeScript | 5 | Tipado estático |
+| Vite | 6 | Herramienta de desarrollo |
+| React Router DOM | 7 | Enrutamiento del lado del cliente |
+| Zustand | 5 | Gestión de estado global |
+| Tailwind CSS | 4 | Estilos utilitarios |
+
+---
+
+## 🌐 Referencia de la API
+
+Este proyecto consume la [API REST de Rick and Morty](https://rickandmortyapi.com/documentation).
+
+URL base: `https://rickandmortyapi.com/api`
+
+| Endpoint | Descripción |
+|----------|-------------|
+| `GET /character` | Lista paginada de personajes con filtros opcionales |
+| `GET /character/:id` | Un personaje por ID |
+| `GET /episode/:ids` | Uno o varios episodios por ID |
+
+---
