@@ -1,6 +1,6 @@
 # 🛸 Rick & Morty App
 
-> Base de Datos Interdimensional — Una aplicación construida con React + TypeScript y Vite que consume la [API pública de Rick and Morty](https://rickandmortyapi.com/).
+> Una aplicación construida con React + TypeScript y Vite que consume la [API pública de Rick and Morty](https://rickandmortyapi.com/).
 
 ---
 
